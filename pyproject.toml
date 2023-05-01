@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "busse-pur-cost-var"
+version = "0.1.0"
+description = "parse output from GET.POD.FOR.VARS"
+authors = ["Jeff Modell"]
+readme = "README.md"
+packages = [{include = "busse_pur_cost_var"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+pandas = "^2.0.1"
+xlrd = "^2.0.1"
+openpyxl = "^3.1.2"
+
+[tool.poetry.group.dev.dependencies]
+pyinstaller = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
