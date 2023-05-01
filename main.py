@@ -6,8 +6,10 @@ def main():
     file = r"C:\temp\POD_LIST.CSV"
 
     df = pd.read_csv(file, header=None, encoding="utf-8", dtype=str)
-    df.columns = ["item", "purchase_price", "supplier", "received_dt", "chg_value"]
-    # drop if received_dt is NaN
+    df.columns = [
+        "item", "purchase_price", "supplier", "received_dt", "chg_value", "status"
+    ]
+    
     df.dropna(subset=["received_dt"], inplace=True)
 
     df["purchase_price"] = df["purchase_price"].astype(float)
@@ -25,6 +27,10 @@ def main():
     output = f"POD_LIST_{datetime.now().strftime('%Y%m%d%H%M%S')}.xlsx"
     
     df.drop_duplicates(subset=["item", "received_dt"], inplace=True)
+
+    df["status"] = df["status"].apply(lambda x: "Open" if x == "O" else "Closed")
+    
+    df.sort_values(by=["status", "item"], inplace=True)
 
     df.to_excel(output, index=False)
 
